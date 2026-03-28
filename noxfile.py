@@ -13,7 +13,7 @@ PYTHON_VERSIONS = ["3.14", "3.13", "3.12", "3.11", "3.10"]
 
 GQL_CORE_VERSIONS = [
     "3.2.6",
-    "3.3.0a9",
+    "3.3.0a12",
 ]
 
 COMMON_PYTEST_OPTIONS = [
@@ -59,7 +59,7 @@ def with_gql_core_parametrize(name: str, params: list[str]) -> Callable[[Any], A
     arg_names = f"{name}, gql_core"
     combinations = list(itertools.product(params, GQL_CORE_VERSIONS))
     ids = [f"{name}-{comb[0]}__graphql-core-{comb[1]}" for comb in combinations]
-    return lambda fn: nox.parametrize(arg_names, combinations, ids=ids)(fn)
+    return nox.parametrize(arg_names, combinations, ids=ids)
 
 
 @session(python=PYTHON_VERSIONS, name="Tests", tags=["tests"])
